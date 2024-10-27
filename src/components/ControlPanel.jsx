@@ -46,15 +46,17 @@ const ControlPanel = ({ onStart, onPause, onResume, onReset, setArraySize, setSp
       <div className="control-panel-adjustment">
         <div className="control-group-adjustment">
           <div className="control-group">
-            <label>Set Algorithm To Use: </label>
+            <label className="dropdown-label">Set Algorithm To Use: </label>
             <SelectDropdown
               options={algorithmOptions}
               selectedValue={algorithm}
               onChange={setAlgorithm}
               disabled={isSorting}
+              className="algorithm-dropdown" // Add a class for styling
             />
           </div>
-          
+
+
           <div className="control-group">
             <label>Set Array Size to sort: </label>
             <RangeSlider
@@ -66,15 +68,15 @@ const ControlPanel = ({ onStart, onPause, onResume, onReset, setArraySize, setSp
               disabled={isSorting}
             />
           </div>
-          
+
           <div className="control-group">
             <label>Set Speed Animation: </label>
             <RangeSlider
               label={`${localSpeed}ms`}
               min={1}
               max={1000}
-              value={1001 - localSpeed}
-              onChange={(e) => handleSpeedChange(1001 - Number(e.target.value))}
+              value={localSpeed}
+              onChange={(e) => handleSpeedChange(Number(e.target.value))}
               disabled={isSorting}
             />
           </div>
@@ -94,7 +96,7 @@ const ControlPanel = ({ onStart, onPause, onResume, onReset, setArraySize, setSp
           </div>
         </div>
 
-        <div className="button-group-adjustment">    
+        <div className="button-group-adjustment">
           <Button color="" label="Start" onClick={onStart} disabled={isSorting} />
           {isPaused ? (
             <Button color="" label="Resume" onClick={onResume} disabled={!isSorting} />
